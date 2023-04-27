@@ -1,0 +1,49 @@
+三种多环境管理配置
+  #${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+1.DataId
+  : 只改变配置文件中的{spring.profile.active},其他不配置使用默认(默认空间+默认分组)
+    通过spring.profile.active属性就能进行多环境下配置文件的读取
+	spring:
+        application:
+            name: config-client
+        cloud:
+			nacos:
+			  discovery:
+				server-addr: localhost:8848  #服务注册中心地址
+			  config:
+				server-addr: localhost:8848  #配置中心地址
+				file-extension: yaml  #指定yaml格式的配置
+
+2.Group
+    : 通过分组名改变进行多环境下配置文件的读取
+    spring:
+        application:
+            name: config-client
+        cloud:
+			nacos:
+			  discovery:
+				server-addr: localhost:8848  
+			  config:
+				server-addr: localhost:8848  
+				file-extension: yaml 
+				group: DEV_GROUP  #开发环境分组
+
+3.Namespace
+	: 通过命名空间改变进行多环境下配置文件的读取
+    spring:
+        application:
+            name: config-client
+        cloud:
+			nacos:
+			  discovery:
+				server-addr: localhost:8848  
+			  config:
+				server-addr: localhost:8848  
+				file-extension: yaml 
+				namespace: 5da1dccc-ee26-49e0-b8e5-7d9559b95ab0 #命名空间id
+
+生成在nacos中的地址
+   命名空间       分组         dataId
+1. public     DEFAULT_GROUP		config-client-dev.yaml
+2. public     DEV_GROUP 		config-client-dev.yaml
+3. dev		  DEFAULT_GROUP		config-client-dev.yaml

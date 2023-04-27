@@ -1,0 +1,25 @@
+server:
+  port: 2002
+
+spring:
+  application:
+    name: storage-service #服务名称
+  cloud:
+    nacos: #nacos地址
+      discovery:
+        server-addr: localhost:8848
+    alibaba:
+      seata:
+        tx-service-group: default
+  datasource:  #数据库配置
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata_storage?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: yz2021
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations:  classpath:mapper/*.xml
+

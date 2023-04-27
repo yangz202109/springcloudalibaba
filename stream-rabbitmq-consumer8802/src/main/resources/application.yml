@@ -1,0 +1,21 @@
+server:
+  port: 8802
+spring:
+  application:
+    name: rabbitmq-consumer
+  rabbitmq:
+    host: 192.168.137.128
+    port: 5672
+    username: admin
+    password: 123
+  cloud:
+    nacos: #设置注册中心
+      discovery:
+        server-addr: localhost:8848 #配置nacos地址
+        username: yangz
+        password: 123
+    stream:
+      bindings: #服务的整合处理
+        myChannel-in-0: #这个名字是一个通道的名字
+          destination: studyExchange #表示要使用Exchange名称定义
+          contentType: application/json #设置消息类型，本次为json，文本则设置为“text/plain”
